@@ -1,51 +1,70 @@
 const axios = require("axios");
 
-// Task 11 - Get all books
+const BASE_URL = "http://localhost:5000";
+
 async function getAllBooks() {
     try {
-        const response = await axios.get("http://localhost:5000/");
-        console.log(response.data);
+        const response = await axios.get(`${BASE_URL}/`);
+
+        if (response.status === 200) {
+            return response.data;
+        }
+
     } catch (error) {
-        console.error(error.message);
+        console.log("Error retrieving books:", error.message);
     }
 }
 
-// Task 11 - Get book by ISBN
-async function getBookByISBN(isbn) {
+
+async function getBooksByISBN(isbn) {
     try {
-        const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
-        console.log(response.data);
+        const response = await axios.get(`${BASE_URL}/isbn/${isbn}`);
+
+        if (response.status === 200) {
+            return response.data;
+        }
+
     } catch (error) {
-        console.error(error.message);
+        console.log("Error retrieving ISBN:", error.message);
     }
 }
 
-// Task 11 - Get books by Author
+
 async function getBooksByAuthor(author) {
     try {
         const response = await axios.get(
-            `http://localhost:5000/author/${encodeURIComponent(author)}`
+            `${BASE_URL}/author/${encodeURIComponent(author)}`
         );
-        console.log(response.data);
+
+        if (response.status === 200) {
+            return response.data;
+        }
+
     } catch (error) {
-        console.error(error.message);
+        console.log("Error retrieving author:", error.message);
     }
 }
 
-// Task 11 - Get books by Title
+
 async function getBooksByTitle(title) {
     try {
         const response = await axios.get(
-            `http://localhost:5000/title/${encodeURIComponent(title)}`
+            `${BASE_URL}/title/${encodeURIComponent(title)}`
         );
-        console.log(response.data);
+
+        if (response.status === 200) {
+            return response.data;
+        }
+
     } catch (error) {
-        console.error(error.message);
+        console.log("Error retrieving title:", error.message);
     }
 }
 
-// Example calls
-getAllBooks();
-getBookByISBN(1);
-getBooksByAuthor("Chinua Achebe");
-getBooksByTitle("Things Fall Apart");
+
+module.exports = {
+    getAllBooks,
+    getBooksByISBN,
+    getBooksByAuthor,
+    getBooksByTitle
+};
